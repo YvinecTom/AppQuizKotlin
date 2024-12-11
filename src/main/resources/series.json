@@ -1,0 +1,52 @@
+[
+  {
+    "question": "Dans quelle série télévisée peut-on suivre les aventures de 'Walter White' ?",
+    "options": ["Breaking Bad", "Better Call Saul", "The Sopranos", "Narcos"],
+    "answer": "Breaking Bad"
+  },
+  {
+    "question": "Quel personnage interprète Emilia Clarke dans la série 'Game of Thrones' ?",
+    "options": ["Sansa Stark", "Arya Stark", "Cersei Lannister", "Daenerys Targaryen"],
+    "answer": "Daenerys Targaryen"
+  },
+  {
+    "question": "Dans quelle série Netflix suit-on les aventures de 'Stranger Things' ?",
+    "options": ["Stranger Things", "The Witcher", "Narcos", "Dark"],
+    "answer": "Stranger Things"
+  },
+  {
+    "question": "Qui interprète le rôle de Sherlock Holmes dans la série 'Sherlock' ?",
+    "options": ["Benedict Cumberbatch", "Martin Freeman", "David Tennant", "Matt Smith"],
+    "answer": "Benedict Cumberbatch"
+  },
+  {
+    "question": "Dans quelle série télévisée les personnages vivent-ils dans une ville nommée 'The Big Apple' ?",
+    "options": ["Friends", "How I Met Your Mother", "Gossip Girl", "Seinfeld"],
+    "answer": "Friends"
+  },
+  {
+    "question": "Quel personnage est un tueur en série dans la série 'Dexter' ?",
+    "options": ["Dexter Morgan", "Hannibal Lecter", "Norman Bates", "Jigsaw"],
+    "answer": "Dexter Morgan"
+  },
+  {
+    "question": "Dans quelle série télévisée les personnages vivent-ils sur l'île 'Lost' ?",
+    "options": ["Lost", "The Walking Dead", "Prison Break", "24 heures chrono"],
+    "answer": "Lost"
+  },
+  {
+    "question": "Dans quelle série télévisée se déroule l'histoire de l'agence de détectives 'Bunk' ?",
+    "options": ["The Wire", "True Detective", "The Shield", "Sons of Anarchy"],
+    "answer": "The Wire"
+  },
+  {
+    "question": "Dans quelle série télévisée une famille aux pouvoirs spéciaux est-elle mise à l'épreuve ?",
+    "options": ["The Flash", "The Incredibles", "Heroes", "Umbrella Academy"],
+    "answer": "The Incredibles"
+  },
+  {
+    "question": "Dans quelle série télévisée 'The Mandalorian' trouve-t-on des créatures appelées 'Grogu' ?",
+    "options": ["Star Wars", "The Mandalorian", "The Witcher", "Lord of the Rings"],
+    "answer": "The Mandalorian"
+  }
+]

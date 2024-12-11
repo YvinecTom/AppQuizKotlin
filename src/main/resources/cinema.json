@@ -1,0 +1,52 @@
+[
+  {
+    "question": "Quel film a remporté l'Oscar du meilleur film en 1994 ?",
+    "options": ["Forrest Gump", "Pulp Fiction", "The Shawshank Redemption", "The Lion King"],
+    "answer": "Forrest Gump"
+  },
+  {
+    "question": "Quel acteur joue le rôle principal dans le film 'Inception' ?",
+    "options": ["Leonardo DiCaprio", "Matt Damon", "Christian Bale", "Tom Hardy"],
+    "answer": "Leonardo DiCaprio"
+  },
+  {
+    "question": "Dans quel film de science-fiction le personnage principal dit-il 'May the Force be with you' ?",
+    "options": ["Star Wars", "Blade Runner", "The Matrix", "Star Trek"],
+    "answer": "Star Wars"
+  },
+  {
+    "question": "Quel réalisateur est connu pour avoir réalisé 'Pulp Fiction' ?",
+    "options": ["Martin Scorsese", "Quentin Tarantino", "Steven Spielberg", "Christopher Nolan"],
+    "answer": "Quentin Tarantino"
+  },
+  {
+    "question": "Quel film a remporté l'Oscar du meilleur film en 1999 ?",
+    "options": ["Titanic", "American Beauty", "Gladiator", "The Matrix"],
+    "answer": "American Beauty"
+  },
+  {
+    "question": "Quel acteur incarne le rôle de Jack Dawson dans 'Titanic' ?",
+    "options": ["Brad Pitt", "Johnny Depp", "Leonardo DiCaprio", "Tom Hanks"],
+    "answer": "Leonardo DiCaprio"
+  },
+  {
+    "question": "Dans quel film, des extraterrestres envahissent-ils la Terre ?",
+    "options": ["E.T. l'extra-terrestre", "La Guerre des mondes", "Independence Day", "Aliens"],
+    "answer": "Independence Day"
+  },
+  {
+    "question": "Quel est le nom du personnage joué par Audrey Hepburn dans 'Breakfast at Tiffany's' ?",
+    "options": ["Holly Golightly", "Marilyn Monroe", "Samantha Jones", "Rachel Green"],
+    "answer": "Holly Golightly"
+  },
+  {
+    "question": "Dans quel film le personnage principal porte-t-il un costume rouge et blanc et un masque de fer ?",
+    "options": ["Deadpool", "Spider-Man", "Iron Man", "The Mask"],
+    "answer": "Deadpool"
+  },
+  {
+    "question": "Quel film de Christopher Nolan met en scène le personnage de Bruce Wayne ?",
+    "options": ["Inception", "The Dark Knight", "Dunkirk", "Interstellar"],
+    "answer": "The Dark Knight"
+  }
+]

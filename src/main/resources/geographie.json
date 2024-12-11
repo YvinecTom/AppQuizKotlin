@@ -1,0 +1,52 @@
+[
+  {
+    "question": "Quelle est la capitale de la France ?",
+    "options": ["Berlin", "Madrid", "Paris", "Rome"],
+    "answer": "Paris"
+  },
+  {
+    "question": "Quel pays est le plus grand par superficie ?",
+    "options": ["Canada", "États-Unis", "Russie", "Chine"],
+    "answer": "Russie"
+  },
+  {
+    "question": "Quel est le plus long fleuve du monde ?",
+    "options": ["Nil", "Amazonie", "Yangzi", "Mississippi"],
+    "answer": "Amazonie"
+  },
+  {
+    "question": "Dans quel océan se trouve l'archipel des îles Maldives ?",
+    "options": ["Océan Atlantique", "Océan Indien", "Océan Pacifique", "Mer Méditerranée"],
+    "answer": "Océan Indien"
+  },
+  {
+    "question": "Quel est le pays avec le plus grand nombre d'habitants ?",
+    "options": ["Chine", "Inde", "États-Unis", "Brésil"],
+    "answer": "Chine"
+  },
+  {
+    "question": "Quel est le plus grand désert du monde ?",
+    "options": ["Sahara", "Gobi", "Kalahari", "Arctique"],
+    "answer": "Sahara"
+  },
+  {
+    "question": "Quel est le plus haut sommet du monde ?",
+    "options": ["Mont Everest", "K2", "Kangchenjunga", "Mont Blanc"],
+    "answer": "Mont Everest"
+  },
+  {
+    "question": "Quelle est la capitale du Japon ?",
+    "options": ["Séoul", "Pékin", "Tokyo", "Bangkok"],
+    "answer": "Tokyo"
+  },
+  {
+    "question": "Quel est le plus grand océan du monde ?",
+    "options": ["Atlantique", "Pacifique", "Indien", "Arctique"],
+    "answer": "Pacifique"
+  },
+  {
+    "question": "Quel est le pays situé le plus au nord du monde ?",
+    "options": ["Norvège", "Islande", "Canada", "Finlande"],
+    "answer": "Norvège"
+  }
+]
