@@ -1,36 +1,40 @@
 import androidx.compose.animation.animateColorAsState
 import androidx.compose.desktop.ui.tooling.preview.Preview
 import androidx.compose.foundation.background
-import androidx.compose.foundation.hoverable
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.interaction.collectIsHoveredAsState
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.input.pointer.pointerMoveFilter
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.json.Json
 import java.io.InputStreamReader
 import java.nio.charset.Charset
+import androidx.compose.ui.text.font.FontFamily
+import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.platform.Font
 
+val belgrano = FontFamily(
+    Font(
+        resource = "font/Belgrano-Regular.ttf",
+        weight = FontWeight.Normal
+    )
+)
 // Fonction de lecture du fichier JSON
 fun readQuizQuestionsFromFile(filename: String): List<QuizQuestion> {
     val inputStream = object {}.javaClass.getResourceAsStream("/$filename")
-
-    if (inputStream == null) {
-        throw IllegalArgumentException("Le fichier $filename n'a pas été trouvé dans les ressources.")
-    }
-
+        ?: throw IllegalArgumentException("Le fichier $filename n'a pas été trouvé dans les ressources.")
     val reader = InputStreamReader(inputStream, Charset.defaultCharset())
-    val fileContent = reader.readText()
-
-    return Json.decodeFromString(fileContent)
+    return Json.decodeFromString(reader.readText())
 }
 
 @Serializable
@@ -40,67 +44,134 @@ data class QuizQuestion(
     val answer: String
 )
 
-// Écran de sélection des catégories
+@Preview
 @Composable
-fun CategorySelectionScreen(onCategorySelected: (String) -> Unit, scores: Map<String, Int>) {
-    Column(Modifier.padding(16.dp)) {
-        Text(
-            "Sélectionnez une catégorie",
-            style = MaterialTheme.typography.h5,
-            modifier = Modifier.fillMaxWidth(),
-            textAlign = TextAlign.Center
-        )
+fun QuizApp() {
+    val backgroundLight = Color(0xFFFFF8F7)
+    val primaryLight = Color(0xFF8E4957)
+    val primaryContainerLight = Color(0xFFFFD9DE)
+    val secondaryLight = Color(0xFF75565B)
+    val secondaryContainerLight = Color(0xFFFFD9DE)
+    val tertiaryLight = Color(0xFF795831)
+    val tertiaryContainerLight = Color(0xFFFFDDBA)
 
+    var userName by remember { mutableStateOf<String?>(null) }
+    var selectedCategory by remember { mutableStateOf<String?>(null) }
+    var scores by remember { mutableStateOf(mapOf<String, Int>()) }
+
+    Box(
+        modifier = Modifier
+            .fillMaxSize()
+            .background(backgroundLight)
+    ) {
+        when {
+            userName == null -> WelcomeScreen { name -> userName = name }
+            selectedCategory == null -> CategorySelectionScreen(
+                onCategorySelected = { category -> selectedCategory = category },
+                scores = scores,
+                userName = userName
+            )
+            else -> QuizScreen(
+                category = selectedCategory!!,
+                userName = userName,
+                onFinishQuiz = { score ->
+                    scores = scores + (selectedCategory!! to score)
+                    selectedCategory = null
+                }
+            )
+        }
+    }
+}
+
+@Composable
+fun WelcomeScreen(onContinue: (String) -> Unit) {
+    Column(
+        modifier = Modifier
+            .fillMaxSize()
+            .padding(16.dp),
+        verticalArrangement = Arrangement.Center,
+        horizontalAlignment = Alignment.CenterHorizontally
+    ) {
+        var text by remember { mutableStateOf("") }
+        Text("Bienvenue dans QuizMania !", style = MaterialTheme.typography.h4, textAlign = TextAlign.Center)
         Spacer(Modifier.height(16.dp))
+        TextField(
+            value = text,
+            onValueChange = { text = it },
+            label = { Text(
+                text = "Entrez votre nom",
+                fontFamily = belgrano
+            ) },
+            modifier = Modifier.fillMaxWidth(0.8f)
+        )
+        Spacer(Modifier.height(16.dp))
+        Button(onClick = { if (text.isNotEmpty()) onContinue(text) }) {
+            Text("Commencer")
+        }
+    }
+}
 
-        // Liste des catégories disponibles
+@Composable
+fun CategorySelectionScreen(
+    onCategorySelected: (String) -> Unit,
+    scores: Map<String, Int>,
+    userName: String?
+) {
+    Column(
+        Modifier.fillMaxSize().verticalScroll(rememberScrollState()),
+        verticalArrangement = Arrangement.Center,
+        horizontalAlignment = Alignment.CenterHorizontally
+    ) {
+        userName?.let {
+            Text("Bonjour $it", style = MaterialTheme.typography.h6, modifier = Modifier.padding(bottom = 16.dp))
+        }
+        Text("Sélectionnez une catégorie", style = MaterialTheme.typography.h5, textAlign = TextAlign.Center)
+        Spacer(Modifier.height(16.dp))
         val categories = listOf("cinema", "jeu_video", "geographie", "series", "sport")
         categories.forEach { category ->
-            Column {
-                Button(
-                    onClick = { onCategorySelected(category) },
-                    Modifier.fillMaxWidth().padding(8.dp)
-                ) {
+            Column(horizontalAlignment = Alignment.CenterHorizontally, modifier = Modifier.padding(8.dp)) {
+                Button(onClick = { onCategorySelected(category) }, Modifier.fillMaxWidth(0.8f)) {
                     Text(category.capitalize())
                 }
-                // Afficher le score pour chaque catégorie si disponible
-                scores[category]?.let {
-                    Text("Votre score: $it", style = MaterialTheme.typography.body2)
-                }
+                scores[category]?.let { Text("Score: $it", fontSize = 16.sp) }
             }
         }
     }
 }
 
 @Composable
-fun QuizScreen(category: String, onFinishQuiz: (Int) -> Unit) {
+fun QuizScreen(
+    category: String,
+    userName: String?,
+    onFinishQuiz: (Int) -> Unit
+) {
     var questions by remember { mutableStateOf<List<QuizQuestion>>(emptyList()) }
     var currentQuestionIndex by remember { mutableStateOf(0) }
     var userAnswer by remember { mutableStateOf("") }
     var message by remember { mutableStateOf("") }
     var score by remember { mutableStateOf(0) }
 
-    // Charger les questions du fichier correspondant à la catégorie
     LaunchedEffect(category) {
-        questions = readQuizQuestionsFromFile("${category}.json")
+        questions = try {
+            readQuizQuestionsFromFile("${category}.json")
+        } catch (e: Exception) {
+            emptyList()
+        }
     }
 
     Box(
-        modifier = Modifier.fillMaxSize(), // Prend toute la taille disponible
-        contentAlignment = Alignment.Center // Centre le contenu dans le Box
+        modifier = Modifier.fillMaxSize(),
+        contentAlignment = Alignment.Center
     ) {
-        if (questions.isNotEmpty()) {
+        if (questions.isEmpty()) {
+            Text("Chargement des données...")
+        } else {
             val currentQuestion = questions[currentQuestionIndex]
-
-            Column(
-                Modifier.padding(16.dp),
-                horizontalAlignment = Alignment.CenterHorizontally
-            ) {
-                Text(text = currentQuestion.question, style = MaterialTheme.typography.h6)
+            Column(horizontalAlignment = Alignment.CenterHorizontally) {
+                userName?.let { Text("Joueur : $it", style = MaterialTheme.typography.subtitle1) }
                 Spacer(Modifier.height(16.dp))
-
-                val interactionSource = remember { MutableInteractionSource() }
-                val isHovered by interactionSource.collectIsHoveredAsState()
+                Text(currentQuestion.question, style = MaterialTheme.typography.h6)
+                Spacer(Modifier.height(16.dp))
                 Reponse(
                     options = currentQuestion.options,
                     currentQuestion = currentQuestion,
@@ -110,50 +181,18 @@ fun QuizScreen(category: String, onFinishQuiz: (Int) -> Unit) {
                             score++
                             "Correct! Score: $score"
                         } else {
-                            "Incorrect. La bonne réponse est: ${currentQuestion.answer}. Score: $score"
+                            "Incorrect. Réponse: ${currentQuestion.answer}. Score: $score"
                         }
-
-                        // Passer à la question suivante
                         if (currentQuestionIndex < questions.size - 1) {
                             currentQuestionIndex++
                         } else {
-                            // Fin du quiz
                             onFinishQuiz(score)
                         }
-                    },
-                    modifier = Modifier.background(Color.Red)
+                    }
                 )
-
                 Spacer(Modifier.height(16.dp))
-
-                if (userAnswer.isNotEmpty()) {
-                    Text(message)
-                }
+                if (userAnswer.isNotEmpty()) Text(message)
             }
-        } else {
-            Text("Chargement des données...")
-        }
-    }
-}
-
-
-@Composable
-fun QuizApp() {
-    var selectedCategory by remember { mutableStateOf<String?>(null) }
-    var scores by remember { mutableStateOf(mapOf<String, Int>()) }  // Stockage des scores
-
-    if (selectedCategory == null) {
-        CategorySelectionScreen(
-            onCategorySelected = { category ->
-                selectedCategory = category
-            },
-            scores = scores
-        )
-    } else {
-        QuizScreen(category = selectedCategory!!) { score ->
-            // Une fois le quiz terminé, on met à jour les scores et on revient au menu
-            scores = scores + (selectedCategory!! to score)
-            selectedCategory = null  // Retour au menu de sélection
         }
     }
 }
@@ -163,60 +202,30 @@ fun QuizApp() {
 fun Reponse(
     options: List<String>,
     currentQuestion: QuizQuestion,
-    onAnswerSelected: (String, Boolean) -> Unit,
-    modifier: Modifier = Modifier
+    onAnswerSelected: (String, Boolean) -> Unit
 ) {
-    Row(
-        modifier = Modifier.fillMaxWidth()
-    ) {
-        options.forEach { option ->
-            // Créer une interaction source pour chaque bouton
-            val interactionSource = remember { MutableInteractionSource() }
-            val isHovered by interactionSource.collectIsHoveredAsState()
-
-            // Animer la couleur du bouton
-            val buttonColor by animateColorAsState(
-                targetValue = if (isHovered) Color.Red else MaterialTheme.colors.primary
-            )
-
-            Button(
-                onClick = {
-                    // Vérifier si la réponse est correcte
-                    val isCorrect = option == currentQuestion.answer
-
-                    // Appeler le callback avec l'option sélectionnée et le résultat
-                    onAnswerSelected(option, isCorrect)
-                },
-                colors = ButtonDefaults.buttonColors(backgroundColor = buttonColor),
-                interactionSource = interactionSource,
-                modifier = Modifier
-                    .weight(1f)
-                    .padding(8.dp)
-            ) {
-                Text(
-                    text = option,
-                    style = MaterialTheme.typography.button
+    Column {
+        Row (
+            modifier = Modifier.weight(1f)
+        ){
+            options.forEach { option ->
+                val interactionSource = remember { MutableInteractionSource() }
+                val isHovered by interactionSource.collectIsHoveredAsState()
+                val buttonColor by animateColorAsState(
+                    targetValue = if (isHovered) Color.Red else MaterialTheme.colors.primary
                 )
+                Button(
+                    onClick = { onAnswerSelected(option, option == currentQuestion.answer) },
+                    colors = ButtonDefaults.buttonColors(backgroundColor = buttonColor),
+                    interactionSource = interactionSource,
+                    modifier = Modifier.padding(8.dp)
+                ) {
+                    Text(option)
+                }
             }
         }
+
     }
 }
 
-@Preview
-@Composable
-fun HoverableSample() {
-    // MutableInteractionSource to track changes of the component's interactions (like "hovered")
-    val interactionSource = remember { MutableInteractionSource() }
-    val isHovered by interactionSource.collectIsHoveredAsState()
 
-    // the color will change depending on the presence of a hover
-    Box(
-        modifier =
-            Modifier.size(128.dp)
-                .background(if (isHovered) Color.Red else Color.Blue)
-                .hoverable(interactionSource = interactionSource),
-        contentAlignment = Alignment.Center
-    ) {
-        Text(if (isHovered) "Hovered" else "Unhovered")
-    }
-}

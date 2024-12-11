@@ -1,5 +1,8 @@
-import androidx.compose.ui.window.singleWindowApplication
+import androidx.compose.ui.window.Window
+import androidx.compose.ui.window.application
 
-fun main() = singleWindowApplication {
-    QuizApp()
+fun main() = application {
+    Window(onCloseRequest = ::exitApplication) {
+        QuizApp()
+    }
 }

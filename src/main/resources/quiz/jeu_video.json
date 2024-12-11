@@ -1,0 +1,52 @@
+[
+  {
+    "question": "Dans quel jeu vidéo le personnage principal s'appelle 'Master Chief' ?",
+    "options": ["Halo", "Call of Duty", "Gears of War", "Half-Life"],
+    "answer": "Halo"
+  },
+  {
+    "question": "Quel est le nom du protagoniste dans 'The Legend of Zelda' ?",
+    "options": ["Mario", "Link", "Zelda", "Samus"],
+    "answer": "Link"
+  },
+  {
+    "question": "Quel jeu vidéo met en scène un monde ouvert avec des dragons et un vaste paysage médiéval ?",
+    "options": ["Skyrim", "World of Warcraft", "The Witcher 3", "Dark Souls"],
+    "answer": "Skyrim"
+  },
+  {
+    "question": "Quel jeu a popularisé le genre de battle royale ?",
+    "options": ["Fortnite", "PUBG", "Apex Legends", "Minecraft"],
+    "answer": "PUBG"
+  },
+  {
+    "question": "Dans quel jeu vidéo le personnage de 'Mario' fait-il sa première apparition ?",
+    "options": ["Super Mario Bros", "Donkey Kong", "Mario Kart", "Super Smash Bros"],
+    "answer": "Donkey Kong"
+  },
+  {
+    "question": "Quel jeu met en scène des combats entre des personnages avec des pouvoirs surnaturels et des armes ?",
+    "options": ["Street Fighter", "Tekken", "Mortal Kombat", "Guilty Gear"],
+    "answer": "Mortal Kombat"
+  },
+  {
+    "question": "Quel jeu est basé sur une série de films et implique des créatures appelées 'Pokémon' ?",
+    "options": ["Pokémon GO", "Pokémon Sword and Shield", "Pokémon Yellow", "Pokémon Red"],
+    "answer": "Pokémon GO"
+  },
+  {
+    "question": "Quel est le nom de la planète dans 'Star Wars: Knights of the Old Republic' ?",
+    "options": ["Tatooine", "Coruscant", "Naboo", "Taris"],
+    "answer": "Taris"
+  },
+  {
+    "question": "Dans quel jeu vidéo un personnage nommé 'Link' sauve la princesse Zelda ?",
+    "options": ["Zelda", "Ocarina of Time", "The Legend of Zelda: Breath of the Wild", "Twilight Princess"],
+    "answer": "Ocarina of Time"
+  },
+  {
+    "question": "Dans quel jeu vidéo de sport peut-on jouer au football avec des voitures ?",
+    "options": ["FIFA", "Rocket League", "Madden NFL", "NBA 2K"],
+    "answer": "Rocket League"
+  }
+]

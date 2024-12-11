@@ -1,9 +1,9 @@
 import org.jetbrains.compose.desktop.application.dsl.TargetFormat
 
 plugins {
-    kotlin("jvm") version "2.1.0"
-    kotlin("plugin.serialization") version "2.1.0"
-    id("org.jetbrains.compose")
+    kotlin("jvm") version "1.9.23" // Utilisez cette version
+    kotlin("plugin.serialization") version "1.9.23"
+    id("org.jetbrains.compose") version "1.6.11"
     id("org.jetbrains.kotlin.plugin.compose")
 }
 
@@ -17,12 +17,16 @@ repositories {
 }
 
 dependencies {
-    // Note, if you develop a library, you should use compose.desktop.common.
-    // compose.desktop.currentOs should be used in launcher-sourceSet
-    // (in a separate module for demo project and in testMain).
-    // With compose.desktop.common you will also lose @Preview functionality
     implementation(compose.desktop.currentOs)
-    implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.7.3")
+    implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.6.3")
+
+    // Remplacez Material3 par les composants Compose Material
+    implementation(compose.material)
+    implementation(compose.materialIconsExtended)
+
+    // Ajoutez ces dépendances
+    implementation("org.jetbrains.compose.ui:ui-tooling-preview-desktop:1.6.11")
+    implementation("org.jetbrains.compose.runtime:runtime-saveable-desktop:1.6.11")
 }
 
 compose.desktop {
