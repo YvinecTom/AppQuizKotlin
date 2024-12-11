@@ -12,6 +12,7 @@ import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.input.pointer.pointerMoveFilter
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.json.Json
@@ -43,7 +44,12 @@ data class QuizQuestion(
 @Composable
 fun CategorySelectionScreen(onCategorySelected: (String) -> Unit, scores: Map<String, Int>) {
     Column(Modifier.padding(16.dp)) {
-        Text("Sélectionnez une catégorie", style = MaterialTheme.typography.h5)
+        Text(
+            "Sélectionnez une catégorie",
+            style = MaterialTheme.typography.h5,
+            modifier = Modifier.fillMaxWidth(),
+            textAlign = TextAlign.Center
+        )
 
         Spacer(Modifier.height(16.dp))
 
