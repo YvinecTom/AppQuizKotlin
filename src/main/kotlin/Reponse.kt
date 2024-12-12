@@ -29,7 +29,7 @@ fun Reponse(
         Row (
             modifier = Modifier.weight(1f)
         ){
-            options.forEach { option ->
+            currentQuestion.options.forEach { option ->
                 val interactionSource = remember { MutableInteractionSource() }
                 val isHovered by interactionSource.collectIsHoveredAsState()
                 val buttonColor by animateColorAsState(

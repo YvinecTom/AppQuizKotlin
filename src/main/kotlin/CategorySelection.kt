@@ -11,6 +11,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import java.io.File
 
 @Composable
 fun CategorySelectionScreen(
@@ -18,6 +19,10 @@ fun CategorySelectionScreen(
     scores: Map<String, Int>,
     userName: String?
 ) {
+    val resourcesDir = File(System.getProperty("user.dir") + "/src/main/resources")
+    val quizDir = File(resourcesDir, "quiz")
+    val categories = quizDir.listFiles().map { it.nameWithoutExtension }
+
     Column(
         Modifier.fillMaxSize().verticalScroll(rememberScrollState()),
         verticalArrangement = Arrangement.Center,
@@ -28,7 +33,6 @@ fun CategorySelectionScreen(
         }
         Text("Sélectionnez une catégorie", style = MaterialTheme.typography.h5, textAlign = TextAlign.Center, fontFamily = nunito)
         Spacer(Modifier.height(16.dp))
-        val categories = listOf("cinema", "jeu_video", "geographie", "series", "sport")
         Row {
             categories.forEach { category ->
                 Column(horizontalAlignment = Alignment.CenterHorizontally, modifier = Modifier.padding(10.dp)) {

@@ -1,52 +1,105 @@
-[
-  {
-    "question": "Quel pays a remporté la Coupe du Monde de football en 2018 ?",
-    "options": ["Allemagne", "Brésil", "France", "Espagne"],
-    "answer": "France"
-  },
-  {
-    "question": "Qui détient le record du plus grand nombre de buts en Ligue des champions de l'UEFA ?",
-    "options": ["Lionel Messi", "Cristiano Ronaldo", "Zinedine Zidane", "Kylian Mbappé"],
-    "answer": "Cristiano Ronaldo"
-  },
-  {
-    "question": "Quel est le sport principal dans la série 'Moneyball' ?",
-    "options": ["Football", "Baseball", "Basketball", "Rugby"],
-    "answer": "Baseball"
-  },
-  {
-    "question": "Dans quelle ville se déroule le tournoi de tennis de Wimbledon ?",
-    "options": ["Paris", "New York", "Londres", "Melbourne"],
-    "answer": "Londres"
-  },
-  {
-    "question": "Quel est le sport national du Japon ?",
-    "options": ["Karate", "Baseball", "Sumo", "Judo"],
-    "answer": "Sumo"
-  },
-  {
-    "question": "Qui est le plus grand cycliste de tous les temps, avec 7 victoires au Tour de France ?",
-    "options": ["Eddy Merckx", "Miguel Indurain", "Lance Armstrong", "Bernard Hinault"],
-    "answer": "Lance Armstrong"
-  },
-  {
-    "question": "Quel est le nombre de joueurs dans une équipe de basketball sur le terrain ?",
-    "options": ["5", "6", "7", "8"],
-    "answer": "5"
-  },
-  {
-    "question": "Quel pays a remporté le plus grand nombre de titres en Coupe du Monde de rugby ?",
-    "options": ["Nouvelle-Zélande", "Afrique du Sud", "Angleterre", "Australie"],
-    "answer": "Nouvelle-Zélande"
-  },
-  {
-    "question": "Dans quel sport existe-t-il un tournoi appelé 'The Masters' ?",
-    "options": ["Football", "Tennis", "Golf", "Boxe"],
-    "answer": "Golf"
-  },
-  {
-    "question": "Dans quelle ville a eu lieu les premiers Jeux Olympiques modernes ?",
-    "options": ["Paris", "Athènes", "Rome", "Londres"],
-    "answer": "Athènes"
-  }
-]
+{
+  "category": "Sports",
+  "questions": [
+    {
+      "question": "Quel joueur détient le record du plus grand nombre de buts marqués en Coupe du Monde de football ?",
+      "options": [
+        "Pelé",
+        "Miroslav Klose",
+        "Ronaldo",
+        "Lionel Messi"
+      ],
+      "answer": "Miroslav Klose"
+    },
+    {
+      "question": "Dans quel sport utilise-t-on une crosse pour manipuler une balle ?",
+      "options": [
+        "Le baseball",
+        "Le hockey sur glace",
+        "Le hockey sur gazon",
+        "Le cricket"
+      ],
+      "answer": "Le hockey sur gazon"
+    },
+    {
+      "question": "Combien de joueurs composent une équipe de basket-ball sur le terrain ?",
+      "options": [
+        "4",
+        "5",
+        "6",
+        "7"
+      ],
+      "answer": "5"
+    },
+    {
+      "question": "Quelle compétition est surnommée « La Grande Boucle » ?",
+      "options": [
+        "Le Tour de France",
+        "Les Jeux Olympiques",
+        "Le Grand Chelem de tennis",
+        "Le Championnat du Monde de Formule 1"
+      ],
+      "answer": "Le Tour de France"
+    },
+    {
+      "question": "Quel pays a remporté la Coupe du Monde de football en 1998 ?",
+      "options": [
+        "Le Brésil",
+        "La France",
+        "L'Allemagne",
+        "L'Italie"
+      ],
+      "answer": "La France"
+    },
+    {
+      "question": "Dans quel sport le terme « birdie » est-il utilisé ?",
+      "options": [
+        "Le tennis",
+        "Le golf",
+        "Le badminton",
+        "Le rugby"
+      ],
+      "answer": "Le golf"
+    },
+    {
+      "question": "Quelle distance parcourt un marathon ?",
+      "options": [
+        "21,097 kilomètres",
+        "42,195 kilomètres",
+        "50 kilomètres",
+        "10 kilomètres"
+      ],
+      "answer": "42,195 kilomètres"
+    },
+    {
+      "question": "Dans quel sport trouve-t-on des positions comme « quarterback » et « linebacker » ?",
+      "options": [
+        "Le baseball",
+        "Le football américain",
+        "Le hockey sur glace",
+        "Le rugby"
+      ],
+      "answer": "Le football américain"
+    },
+    {
+      "question": "Qui est surnommé « La Foudre » dans le monde du sport ?",
+      "options": [
+        "Michael Phelps",
+        "Usain Bolt",
+        "Carl Lewis",
+        "Serena Williams"
+      ],
+      "answer": "Usain Bolt"
+    },
+    {
+      "question": "Quel pays est le berceau du judo ?",
+      "options": [
+        "La Chine",
+        "Le Japon",
+        "La Corée du Sud",
+        "La Thaïlande"
+      ],
+      "answer": "Le Japon"
+    }
+  ]
+}
