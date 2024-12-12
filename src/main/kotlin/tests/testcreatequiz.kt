@@ -1,5 +1,4 @@
 package tests
-
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.*
 import androidx.compose.runtime.*
@@ -19,21 +18,12 @@ data class QuizQuestion(
     val options: List<String>,
     val answer: String
 )
-
-@Serializable
-data class Quiz(
-    val category: String,
-    val questions: List<QuizQuestion>
-)
-
 @Composable
 fun QuizCreatorApp() {
-    var currentScreen by remember { mutableStateOf<Screen>(Screen.QuizSelector) }
+    var currentScreen by remember { mutableStateOf<Screen>(Screen.CategoryInput) }
     var quizCategory by remember { mutableStateOf("") }
-    //var questions by remember { mutableStateOf(mutableListOf<QuizQuestion>()) }
+    var questions by remember { mutableStateOf(mutableListOf<QuizQuestion>()) }
     var questionNumber by remember { mutableStateOf(0) }
-    var selectedQuiz by remember { mutableStateOf<Quiz?>(null) }
-
     Scaffold(
         topBar = {
             TopAppBar(
@@ -47,10 +37,6 @@ fun QuizCreatorApp() {
                 .padding(padding)
         ) {
             when (currentScreen) {
-                Screen.QuizSelector -> QuizSelectorScreen { quiz ->
-                    selectedQuiz = quiz
-                    currentScreen = Screen.QuizSummary
-                }
                 Screen.CategoryInput -> CategoryInputScreen(
                     onCategoryEntered = { category ->
                         quizCategory = category
@@ -68,84 +54,41 @@ fun QuizCreatorApp() {
                         }
                     }
                 )
-                Screen.QuizSummary -> if (selectedQuiz != null) {
-                    QuizSummaryScreen(
-                        category = selectedQuiz!!.category,
-                        questions = selectedQuiz!!.questions,
-                        onSave = { },
-                        onReset = {
-                            selectedQuiz = null
-                            currentScreen = Screen.QuizSelector
-                        }
-                    )
-                } else {
-                    QuizSummaryScreen(
-                        category = quizCategory,
-                        questions = questions,
-                        onSave = { saveQuizToFile(quizCategory, questions) },
-                        onReset = {
-                            questions.clear()
-                            questionNumber = 0
-                            currentScreen = Screen.CategoryInput
-                        }
-                    )
-                }
+                Screen.QuizSummary -> QuizSummaryScreen(
+                    category = quizCategory,
+                    questions = questions,
+                    onSave = { saveQuizToFile(quizCategory, questions) },
+                    onReset = {
+                        questions.clear()
+                        questionNumber = 0
+                        currentScreen = Screen.CategoryInput
+                    }
+                )
             }
         }
     }
 }
-
-enum class Screen {
-    QuizSelector,
-    CategoryInput,
-    QuestionCreation,
-    QuizSummary
-}
-
-/** Énumération des écrans
-enum class Screen {
-    CategoryInput,
-    QuestionCreation,
-    QuizSummary
-}**/
-
 // ...
-fun saveQuizToFile(category: String, questions: List<QuizQuestion>) {
-    val quiz = Quiz(category, questions)
-    val json = Json { prettyPrint = true }
-    val jsonString = json.encodeToString(quiz)
-    // Sauvegarder le fichier JSON
-    val file = File(System.getProperty("user.dir") + "/src/main/resources/quiz/$category.json")
-    file.writeText(jsonString)
-}
-/**
 fun saveQuizToFile(category: String, questions: List<QuizQuestion>) {
     val json = Json { prettyPrint = true }
     val jsonString = json.encodeToString(questions)
-
     // Récupérer le chemin absolu du dossier resources
     val resourcesDir = File(System.getProperty("user.dir") + "/src/main/resources")
-
     println("Chemin absolu du dossier resources : " + resourcesDir.absolutePath)
-
     // Créer un dossier pour les quiz s'il n'existe pas
     val quizDir = File(resourcesDir, "quiz")
     if (!quizDir.exists()) {
         quizDir.mkdirs()
     }
-
     // Sauvegarder le fichier JSON
     val file = File(quizDir, "$category.json")
     file.writeText(jsonString)
 }
-**/
-
 @Composable
 fun CategoryInputScreen(
     onCategoryEntered: (String) -> Unit
 ) {
     var category by remember { mutableStateOf("") }
-
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -172,7 +115,6 @@ fun CategoryInputScreen(
         }
     }
 }
-
 @Composable
 fun QuestionCreationScreen(
     currentQuestionNumber: Int,
@@ -181,7 +123,6 @@ fun QuestionCreationScreen(
     var question by remember { mutableStateOf("") }
     var options by remember { mutableStateOf(List(4) { "" }) }
     var correctOptionIndex by remember { mutableStateOf<Int?>(null) }
-
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -190,7 +131,6 @@ fun QuestionCreationScreen(
     ) {
         Text("Question $currentQuestionNumber/10", style = MaterialTheme.typography.h6)
         Spacer(modifier = Modifier.height(16.dp))
-
         TextField(
             value = question,
             onValueChange = { question = it },
@@ -198,7 +138,6 @@ fun QuestionCreationScreen(
             modifier = Modifier.fillMaxWidth()
         )
         Spacer(modifier = Modifier.height(16.dp))
-
         // Options de réponse
         options.forEachIndexed { index, optionText ->
             Row(
@@ -224,7 +163,6 @@ fun QuestionCreationScreen(
             }
             Spacer(modifier = Modifier.height(8.dp))
         }
-
         Button(
             onClick = {
                 // Validation
@@ -232,24 +170,20 @@ fun QuestionCreationScreen(
                     // Gérer l'erreur de question vide
                     return@Button
                 }
-
                 if (options.any { it.isBlank() }) {
                     // Gérer l'erreur d'option vide
                     return@Button
                 }
-
                 if (correctOptionIndex == null) {
                     // Gérer l'erreur de pas de bonne réponse
                     return@Button
                 }
-
                 // Créer la question
                 val quizQuestion = QuizQuestion(
                     question = question,
                     options = options,
                     answer = options[correctOptionIndex!!]
                 )
-
                 // Réinitialiser les champs
                 onQuestionAdded(quizQuestion)
                 question = ""
@@ -264,57 +198,6 @@ fun QuestionCreationScreen(
         }
     }
 }
-
-@Composable
-fun QuizSelectorScreen(
-    onQuizSelected: (Quiz) -> Unit
-) {
-    val resourcesDir = File(System.getProperty("user.dir") + "/src/main/resources")
-    val quizDir = File(resourcesDir, "quiz")
-    val categories = quizDir.listFiles().map { it.nameWithoutExtension }
-
-    Column(
-        modifier = Modifier
-            .fillMaxSize()
-            .padding(16.dp),
-        horizontalAlignment = Alignment.CenterHorizontally
-    ) {
-        Text("Sélectionnez un quiz", style = MaterialTheme.typography.h5)
-        Spacer(modifier = Modifier.height(16.dp))
-
-        LazyColumn(
-            modifier = Modifier.weight(1f)
-        ) {
-            items(categories) { category ->
-                Card(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(vertical = 4.dp)
-                ) {
-                    Row(
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .padding(8.dp),
-                        verticalAlignment = Alignment.CenterVertically
-                    ) {
-                        Text(category, style = MaterialTheme.typography.body1)
-                        Spacer(modifier = Modifier.weight(1f))
-                        Button(onClick = {
-                            val file = File(quizDir, "$category.json")
-                            val quiz = loadQuizFromFile(file)
-                            if (quiz != null) {
-                                onQuizSelected(quiz)
-                            }
-                        }) {
-                            Text("Sélectionner")
-                        }
-                    }
-                }
-            }
-        }
-    }
-}
-
 @Composable
 fun QuizSummaryScreen(
     category: String,
@@ -332,7 +215,6 @@ fun QuizSummaryScreen(
         Spacer(modifier = Modifier.height(16.dp))
         Text("Catégorie: $category", style = MaterialTheme.typography.subtitle1)
         Spacer(modifier = Modifier.height(16.dp))
-
         LazyColumn(
             modifier = Modifier.weight(1f)
         ) {
@@ -349,7 +231,6 @@ fun QuizSummaryScreen(
                 }
             }
         }
-
         Row {
             Button(onClick = onSave) {
                 Text("Sauvegarder le Quiz")
@@ -361,18 +242,9 @@ fun QuizSummaryScreen(
         }
     }
 }
-
-
-
-
-
-fun loadQuizFromFile(file: File): Quiz? {
-    return try {
-        val jsonString = file.readText()
-        val json = Json { ignoreUnknownKeys = true }
-        json.decodeFromString<Quiz>(jsonString)
-    } catch (e: Exception) {
-        null
-    }
+// Énumération des écrans
+enum class Screen {
+    CategoryInput,
+    QuestionCreation,
+    QuizSummary
 }
-
