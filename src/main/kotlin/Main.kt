@@ -4,6 +4,6 @@ import tests.QuizCreatorApp
 
 fun main() = application {
     Window(onCloseRequest = ::exitApplication) {
-        QuizApp()
+        QuizCreatorApp()
     }
 }

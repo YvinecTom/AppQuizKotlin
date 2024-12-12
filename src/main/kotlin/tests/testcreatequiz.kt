@@ -20,13 +20,19 @@ data class QuizQuestion(
     val answer: String
 )
 
+@Serializable
+data class Quiz(
+    val category: String,
+    val questions: List<QuizQuestion>
+)
+
 @Composable
 fun QuizCreatorApp() {
-    var currentScreen by remember { mutableStateOf<Screen>(Screen.CategoryInput) }
+    var currentScreen by remember { mutableStateOf<Screen>(Screen.QuizSelector) }
     var quizCategory by remember { mutableStateOf("") }
-    var questions by remember { mutableStateOf(mutableListOf<QuizQuestion>()) }
+    //var questions by remember { mutableStateOf(mutableListOf<QuizQuestion>()) }
     var questionNumber by remember { mutableStateOf(0) }
-
+    var selectedQuiz by remember { mutableStateOf<Quiz?>(null) }
 
     Scaffold(
         topBar = {
@@ -41,6 +47,10 @@ fun QuizCreatorApp() {
                 .padding(padding)
         ) {
             when (currentScreen) {
+                Screen.QuizSelector -> QuizSelectorScreen { quiz ->
+                    selectedQuiz = quiz
+                    currentScreen = Screen.QuizSummary
+                }
                 Screen.CategoryInput -> CategoryInputScreen(
                     onCategoryEntered = { category ->
                         quizCategory = category
@@ -58,23 +68,57 @@ fun QuizCreatorApp() {
                         }
                     }
                 )
-                Screen.QuizSummary -> QuizSummaryScreen(
-                    category = quizCategory,
-                    questions = questions,
-                    onSave = { saveQuizToFile(quizCategory, questions) },
-                    onReset = {
-                        questions.clear()
-                        questionNumber = 0
-                        currentScreen = Screen.CategoryInput
-                    }
-                )
+                Screen.QuizSummary -> if (selectedQuiz != null) {
+                    QuizSummaryScreen(
+                        category = selectedQuiz!!.category,
+                        questions = selectedQuiz!!.questions,
+                        onSave = { },
+                        onReset = {
+                            selectedQuiz = null
+                            currentScreen = Screen.QuizSelector
+                        }
+                    )
+                } else {
+                    QuizSummaryScreen(
+                        category = quizCategory,
+                        questions = questions,
+                        onSave = { saveQuizToFile(quizCategory, questions) },
+                        onReset = {
+                            questions.clear()
+                            questionNumber = 0
+                            currentScreen = Screen.CategoryInput
+                        }
+                    )
+                }
             }
         }
     }
 }
 
-// ...
+enum class Screen {
+    QuizSelector,
+    CategoryInput,
+    QuestionCreation,
+    QuizSummary
+}
 
+/** Énumération des écrans
+enum class Screen {
+    CategoryInput,
+    QuestionCreation,
+    QuizSummary
+}**/
+
+// ...
+fun saveQuizToFile(category: String, questions: List<QuizQuestion>) {
+    val quiz = Quiz(category, questions)
+    val json = Json { prettyPrint = true }
+    val jsonString = json.encodeToString(quiz)
+    // Sauvegarder le fichier JSON
+    val file = File(System.getProperty("user.dir") + "/src/main/resources/quiz/$category.json")
+    file.writeText(jsonString)
+}
+/**
 fun saveQuizToFile(category: String, questions: List<QuizQuestion>) {
     val json = Json { prettyPrint = true }
     val jsonString = json.encodeToString(questions)
@@ -94,6 +138,7 @@ fun saveQuizToFile(category: String, questions: List<QuizQuestion>) {
     val file = File(quizDir, "$category.json")
     file.writeText(jsonString)
 }
+**/
 
 @Composable
 fun CategoryInputScreen(
@@ -221,6 +266,56 @@ fun QuestionCreationScreen(
 }
 
 @Composable
+fun QuizSelectorScreen(
+    onQuizSelected: (Quiz) -> Unit
+) {
+    val resourcesDir = File(System.getProperty("user.dir") + "/src/main/resources")
+    val quizDir = File(resourcesDir, "quiz")
+    val categories = quizDir.listFiles().map { it.nameWithoutExtension }
+
+    Column(
+        modifier = Modifier
+            .fillMaxSize()
+            .padding(16.dp),
+        horizontalAlignment = Alignment.CenterHorizontally
+    ) {
+        Text("Sélectionnez un quiz", style = MaterialTheme.typography.h5)
+        Spacer(modifier = Modifier.height(16.dp))
+
+        LazyColumn(
+            modifier = Modifier.weight(1f)
+        ) {
+            items(categories) { category ->
+                Card(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(vertical = 4.dp)
+                ) {
+                    Row(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(8.dp),
+                        verticalAlignment = Alignment.CenterVertically
+                    ) {
+                        Text(category, style = MaterialTheme.typography.body1)
+                        Spacer(modifier = Modifier.weight(1f))
+                        Button(onClick = {
+                            val file = File(quizDir, "$category.json")
+                            val quiz = loadQuizFromFile(file)
+                            if (quiz != null) {
+                                onQuizSelected(quiz)
+                            }
+                        }) {
+                            Text("Sélectionner")
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+@Composable
 fun QuizSummaryScreen(
     category: String,
     questions: List<QuizQuestion>,
@@ -267,10 +362,17 @@ fun QuizSummaryScreen(
     }
 }
 
-// Énumération des écrans
-enum class Screen {
-    CategoryInput,
-    QuestionCreation,
-    QuizSummary
+
+
+
+
+fun loadQuizFromFile(file: File): Quiz? {
+    return try {
+        val jsonString = file.readText()
+        val json = Json { ignoreUnknownKeys = true }
+        json.decodeFromString<Quiz>(jsonString)
+    } catch (e: Exception) {
+        null
+    }
 }
 
