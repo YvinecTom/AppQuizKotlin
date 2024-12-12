@@ -1,5 +1,6 @@
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.json.Json
+import tests.QuizQuestion
 import java.io.InputStreamReader
 import java.nio.charset.Charset
 
