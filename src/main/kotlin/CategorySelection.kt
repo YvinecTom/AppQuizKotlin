@@ -17,13 +17,12 @@ import java.io.File
 fun CategorySelectionScreen(
     onCategorySelected: (String) -> Unit,
     scores: Map<String, Int>,
-    userName: String?,
     onQuizCreatorSelected: () -> Unit
 ) {
     val resourcesDir = File(System.getProperty("user.dir") + "/src/main/resources")
     val quizDir = File(resourcesDir, "quiz")
     val categories = quizDir.listFiles().map { it.nameWithoutExtension }
-
+    val userName = GlobalState.userName.value
     Column(
         Modifier
             .fillMaxSize()
@@ -33,7 +32,7 @@ fun CategorySelectionScreen(
     ) {
         userName?.let {
             Text(
-                "Bonjour ENFOIRE $it",
+                "Bonjour $it",
                 style = MaterialTheme.typography.h6,
                 modifier = Modifier.padding(bottom = 25.dp),
                 fontFamily = nunito

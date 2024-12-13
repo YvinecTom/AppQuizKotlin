@@ -9,6 +9,7 @@ import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import secondaryContainerLight
 
@@ -20,14 +21,11 @@ enum class Screen {
     CategoryInput,
     QuestionCreation,
     QuizSummary,
-    QuizSelection, // Nouvel écran ajouté,
     QuizApp
 }
 
 @Composable
-fun QuizCreatorApp(
-    userName: String
-) {
+fun QuizCreatorApp() {
     var currentScreen by remember { mutableStateOf<Screen>(Screen.CategoryInput) }
     var quizCategory by remember { mutableStateOf("") }
     var questions by remember { mutableStateOf(mutableListOf<QuizQuestion>()) }
@@ -35,24 +33,22 @@ fun QuizCreatorApp(
     var questionNumber by remember { mutableStateOf(0) }
     Scaffold(
         topBar = {
-            // N'afficher la topBar que pour certains écrans
             if (currentScreen != Screen.QuizApp && currentScreen != Screen.QuizSummary) {
                 TopAppBar(
-                    title = { Text("Prout") },
+                    title = { Text("QuizCreator") },
                     navigationIcon = {
-                        IconButton(onClick = {
-                            // Revenir à l'écran de sélection des quiz
-                            if (currentScreen == Screen.CategoryInput) {
-                                currentScreen = Screen.QuizApp
-                            } else {
-                                currentScreen = Screen.CategoryInput
+                        IconButton(onClick = {s
+                            // Revenir à l'écran précédent
+                            when (currentScreen) {
+                                Screen.CategoryInput -> currentScreen = Screen.QuizApp
+                                Screen.QuestionCreation -> currentScreen = Screen.CategoryInput
+                                else -> currentScreen = Screen.QuizApp
                             }
                         }) {
                             Icon(Icons.Filled.ArrowBack, contentDescription = "Retour")
                         }
                     },
-                    modifier = Modifier
-                        .background(secondaryContainerLight)
+                    modifier = Modifier.background(Color.Black)
                 )
             }
         }
@@ -70,7 +66,6 @@ fun QuizCreatorApp(
                     }
                 )
                 Screen.QuestionCreation -> QuestionCreationScreen(
-                    userName = userName,
                     currentQuestionNumber = questionNumber + 1,
                     onQuestionAdded = { question ->
                         questions.add(question)
@@ -88,7 +83,7 @@ fun QuizCreatorApp(
                         saveQuizToFile(quizCategory, questions)
                         questions.clear()
                         questionNumber = 0
-                        currentScreen = Screen.QuizSelection // Changement ici
+                        currentScreen = Screen.QuizApp // Changement ici
                     },
                     onReset = {
                         questions.clear()
@@ -96,16 +91,7 @@ fun QuizCreatorApp(
                         currentScreen = Screen.CategoryInput
                     }
                 )
-                // Nouvel écran de sélection de quiz à implémenter
-                Screen.QuizSelection -> QuizSelectionScreen(
-                    onCreateNewQuiz = {
-                        currentScreen = Screen.CategoryInput
-                    }
-                )
-
-                Screen.QuizApp -> QuizApp(
-                    userName = userName
-                )
+                Screen.QuizApp -> QuizApp()
             }
         }
     }
@@ -113,7 +99,6 @@ fun QuizCreatorApp(
 
 @Composable
 fun QuestionCreationScreen(
-    userName: String,
     currentQuestionNumber: Int,
     onQuestionAdded: (QuizQuestion) -> Unit
 ) {

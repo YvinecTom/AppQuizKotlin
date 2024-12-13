@@ -31,15 +31,14 @@ val nunito = FontFamily(
 
 
 
-
 @Composable
-fun QuizApp(
-    userName: String?
-) {
-    var userName by remember { mutableStateOf<String?>(null) }
+fun QuizApp() {
+    val userName by GlobalState.userName.collectAsState()
     var selectedCategory by remember { mutableStateOf<String?>(null) }
     var scores by remember { mutableStateOf(mapOf<String, Int>()) }
     var isQuizCreator by remember { mutableStateOf(false) }
+
+    println("userName from GlobalState: $userName")
 
     Box(
         modifier = Modifier
@@ -47,14 +46,13 @@ fun QuizApp(
             .background(backgroundLight)
     ) {
         when {
-            userName == null -> WelcomeScreen { name -> userName = name }
-            isQuizCreator -> QuizCreatorApp(
-                userName = userName!!
-            )
+            userName == null -> WelcomeScreen { name ->
+                GlobalState.setUserName(name)
+            }
+            isQuizCreator -> QuizCreatorApp()
             selectedCategory == null -> CategorySelectionScreen(
                 onCategorySelected = { category -> selectedCategory = category },
                 scores = scores,
-                userName = userName,
                 onQuizCreatorSelected = { isQuizCreator = true }
             )
             else -> QuizScreen(

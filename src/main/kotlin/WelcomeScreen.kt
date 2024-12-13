@@ -38,7 +38,14 @@ fun WelcomeScreen(onContinue: (String) -> Unit) {
             textStyle = TextStyle(fontSize = 20.sp) // Taille de texte fixe
         )
         Spacer(Modifier.height(16.dp))
-        Button(onClick = { if (text.isNotEmpty()) onContinue(text) }) {
+        Button(
+            onClick = {
+                if (text.isNotEmpty()) {
+                    GlobalState.setUserName(text)
+                    onContinue(text)
+                }
+            }
+        ) {
             Text(
                 text = "Commencer",
                 fontFamily = nunito,
