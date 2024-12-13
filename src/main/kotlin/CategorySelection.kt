@@ -13,6 +13,11 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import java.io.File
 
+
+
+
+
+@OptIn(ExperimentalLayoutApi::class)
 @Composable
 fun CategorySelectionScreen(
     onCategorySelected: (String) -> Unit,
@@ -23,6 +28,7 @@ fun CategorySelectionScreen(
     val quizDir = File(resourcesDir, "quiz")
     val categories = quizDir.listFiles().map { it.nameWithoutExtension }
     val userName = GlobalState.userName.value
+
     Column(
         Modifier
             .fillMaxSize()
@@ -49,36 +55,37 @@ fun CategorySelectionScreen(
 
         Spacer(Modifier.height(16.dp))
 
-        categories.chunked(5).forEach { categoryRow ->
-            Row(
-                horizontalArrangement = Arrangement.Center,
-                modifier = Modifier.fillMaxWidth()
-            ) {
-                categoryRow.forEach { category ->
-                    Column(
-                        horizontalAlignment = Alignment.CenterHorizontally,
-                        modifier = Modifier.padding(10.dp)
+        // Utilisation de FlowRow pour un agencement dynamique
+        FlowRow(
+            modifier = Modifier.fillMaxWidth(),
+            horizontalArrangement = Arrangement.Center,
+            verticalArrangement = Arrangement.Center,
+            maxItemsInEachRow = 5 // Optionnel, ajustez selon vos besoins
+        ) {
+            categories.forEach { category ->
+                Column(
+                    horizontalAlignment = Alignment.CenterHorizontally,
+                    modifier = Modifier.padding(10.dp)
+                ) {
+                    Button(
+                        onClick = { onCategorySelected(category) },
+                        colors = ButtonDefaults.buttonColors(
+                            backgroundColor = secondaryContainerLight
+                        )
                     ) {
-                        Button(
-                            onClick = { onCategorySelected(category) },
-                            colors = ButtonDefaults.buttonColors(
-                                backgroundColor = secondaryContainerLight
-                            )
-                        ) {
-                            Text(
-                                category.capitalize(),
-                                fontFamily = nunito,
-                                color = secondaryLight,
-                                fontSize = 20.sp
-                            )
-                        }
-                        scores[category]?.let {
-                            Text(
-                                "Score: $it",
-                                fontSize = 20.sp,
-                                fontFamily = nunito
-                            )
-                        }
+                        Text(
+                            category.capitalize(),
+                            fontFamily = nunito,
+                            color = secondaryLight,
+                            fontSize = 20.sp
+                        )
+                    }
+                    scores[category]?.let {
+                        Text(
+                            "Score: $it",
+                            fontSize = 20.sp,
+                            fontFamily = nunito
+                        )
                     }
                 }
             }
@@ -96,5 +103,8 @@ fun CategorySelectionScreen(
         }
     }
 }
+
+
+
 
 

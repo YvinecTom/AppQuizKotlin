@@ -226,7 +226,11 @@ fun QuestionCreationScreen(
             enabled = question.isNotBlank() &&
                     options.none { it.isBlank() } &&
                     correctOptionIndex != null &&
-                    errorMessage == null
+                    errorMessage == null,
+            colors = ButtonDefaults.buttonColors(
+                backgroundColor = secondaryContainerLight,
+                contentColor = primaryLight
+            )
         ) {
             Text("Ajouter la question", fontFamily = nunito)
         }

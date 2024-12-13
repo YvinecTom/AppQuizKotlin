@@ -7,6 +7,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.lazy.LazyColumn
+import primaryLight
+import secondaryContainerLight
 
 @Composable
 fun QuizSummaryScreen(
@@ -21,13 +23,16 @@ fun QuizSummaryScreen(
             .padding(16.dp),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        Text("Résumé du Quiz", style = MaterialTheme.typography.h5)
+        Text("Félicitations pour cette création de quiz !", style = MaterialTheme.typography.h5)
         Spacer(modifier = Modifier.height(16.dp))
 
-        Text("Catégorie: $category", style = MaterialTheme.typography.subtitle1)
+        Text("Voici son résumé :", style = MaterialTheme.typography.h5)
         Spacer(modifier = Modifier.height(16.dp))
 
-        Text("Questions:", style = MaterialTheme.typography.subtitle1)
+        Text("Catégorie: $category", style = MaterialTheme.typography.h5)
+        Spacer(modifier = Modifier.height(16.dp))
+
+        Text("Questions:", style = MaterialTheme.typography.h5)
 
         LazyColumn(
             modifier = Modifier
@@ -42,11 +47,11 @@ fun QuizSummaryScreen(
                 ) {
                     Text(
                         text = question.question,
-                        style = MaterialTheme.typography.body1
+                        style = MaterialTheme.typography.subtitle1
                     )
                     Text(
                         text = "Réponse correcte: ${question.answer}",
-                        style = MaterialTheme.typography.body2
+                        style = MaterialTheme.typography.subtitle1
                     )
                 }
                 Divider()
@@ -59,10 +64,21 @@ fun QuizSummaryScreen(
             modifier = Modifier.fillMaxWidth(),
             horizontalArrangement = Arrangement.SpaceBetween
         ) {
-            Button(onClick = onSave) {
-                Text("Sauvegarder")
+            Button(
+                onClick = onSave,
+                colors = ButtonDefaults.buttonColors(
+                    backgroundColor = secondaryContainerLight,
+                    contentColor = primaryLight
+                )
+            ){
+                Text("Retour à Quiz Mania")
             }
-            Button(onClick = onReset) {
+            Button(
+                onClick = onReset,
+                colors = ButtonDefaults.buttonColors(
+                    backgroundColor = secondaryContainerLight,
+                    contentColor = primaryLight
+                )) {
                 Text("Recommencer")
             }
         }
