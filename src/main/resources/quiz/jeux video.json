@@ -1,0 +1,105 @@
+{
+  "category": "Jeux Vidéo",
+  "questions": [
+    {
+      "question": "Quel est le personnage principal de la série 'The Legend of Zelda' ?",
+      "options": [
+        "Mario",
+        "Link",
+        "Samus",
+        "Donkey Kong"
+      ],
+      "answer": "Link"
+    },
+    {
+      "question": "Dans quel jeu trouve-t-on le personnage de 'Pikachu' ?",
+      "options": [
+        "Pokémon",
+        "Super Mario",
+        "Zelda",
+        "Metroid"
+      ],
+      "answer": "Pokémon"
+    },
+    {
+      "question": "Quel est le développeur du jeu 'The Witcher 3: Wild Hunt' ?",
+      "options": [
+        "Ubisoft",
+        "CD Projekt Red",
+        "Naughty Dog",
+        "Rockstar Games"
+      ],
+      "answer": "CD Projekt Red"
+    },
+    {
+      "question": "Dans quel jeu vidéo peut-on jouer un rôle de chasseur de primes intergalactique appelé 'Samus Aran' ?",
+      "options": [
+        "Metroid",
+        "Halo",
+        "Star Wars",
+        "Mass Effect"
+      ],
+      "answer": "Metroid"
+    },
+    {
+      "question": "Quel est le jeu le plus vendu de tous les temps ?",
+      "options": [
+        "Minecraft",
+        "Grand Theft Auto V",
+        "The Legend of Zelda: Breath of the Wild",
+        "Super Mario Bros"
+      ],
+      "answer": "Minecraft"
+    },
+    {
+      "question": "Dans 'Overwatch', quel personnage a la capacité de se transformer en un hamster dans une boule ?",
+      "options": [
+        "Winston",
+        "Hammond",
+        "Reaper",
+        "Genji"
+      ],
+      "answer": "Hammond"
+    },
+    {
+      "question": "Dans quel jeu vidéo un personnage appelé 'Master Chief' doit-il sauver l'humanité ?",
+      "options": [
+        "Halo",
+        "Call of Duty",
+        "Gears of War",
+        "Fortnite"
+      ],
+      "answer": "Halo"
+    },
+    {
+      "question": "Quel jeu a popularisé le genre 'Battle Royale' ?",
+      "options": [
+        "Fortnite",
+        "PUBG",
+        "Minecraft",
+        "Apex Legends"
+      ],
+      "answer": "PUBG"
+    },
+    {
+      "question": "Dans quel jeu vidéo trouve-t-on le personnage de 'Kratos' ?",
+      "options": [
+        "God of War",
+        "Dark Souls",
+        "Skyrim",
+        "Bloodborne"
+      ],
+      "answer": "God of War"
+    },
+    {
+      "question": "Quel jeu a été développé par Bethesda Game Studios et se déroule dans un monde post-apocalyptique ?",
+      "options": [
+        "Fallout",
+        "The Elder Scrolls",
+        "Doom",
+        "Wolfenstein"
+      ],
+      "answer": "Fallout"
+    }
+  ]
+}

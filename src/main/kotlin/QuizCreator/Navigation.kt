@@ -8,32 +8,6 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.lazy.LazyColumn
 
-
-// Nouvel écran de sélection de quiz
-@Composable
-fun QuizSelectionScreen(
-    onCreateNewQuiz: () -> Unit
-) {
-    Column(
-        modifier = Modifier
-            .fillMaxSize()
-            .padding(16.dp),
-        horizontalAlignment = Alignment.CenterHorizontally
-    ) {
-        Text("Sélection des Quiz", style = MaterialTheme.typography.h5)
-        Spacer(modifier = Modifier.height(16.dp))
-
-        // Vous pouvez ajouter ici la logique pour lister les quiz existants
-        // Par exemple, en scannant le dossier de quiz ou en utilisant une base de données
-
-        Button(onClick = onCreateNewQuiz) {
-            Text("Créer un nouveau Quiz")
-        }
-    }
-}
-
-
-
 @Composable
 fun QuizSummaryScreen(
     category: String,

@@ -1,52 +1,105 @@
-[
-  {
-    "question": "Dans quelle série télévisée peut-on suivre les aventures de 'Walter White' ?",
-    "options": ["Breaking Bad", "Better Call Saul", "The Sopranos", "Narcos"],
-    "answer": "Breaking Bad"
-  },
-  {
-    "question": "Quel personnage interprète Emilia Clarke dans la série 'Game of Thrones' ?",
-    "options": ["Sansa Stark", "Arya Stark", "Cersei Lannister", "Daenerys Targaryen"],
-    "answer": "Daenerys Targaryen"
-  },
-  {
-    "question": "Dans quelle série Netflix suit-on les aventures de 'Stranger Things' ?",
-    "options": ["Stranger Things", "The Witcher", "Narcos", "Dark"],
-    "answer": "Stranger Things"
-  },
-  {
-    "question": "Qui interprète le rôle de Sherlock Holmes dans la série 'Sherlock' ?",
-    "options": ["Benedict Cumberbatch", "Martin Freeman", "David Tennant", "Matt Smith"],
-    "answer": "Benedict Cumberbatch"
-  },
-  {
-    "question": "Dans quelle série télévisée les personnages vivent-ils dans une ville nommée 'The Big Apple' ?",
-    "options": ["Friends", "How I Met Your Mother", "Gossip Girl", "Seinfeld"],
-    "answer": "Friends"
-  },
-  {
-    "question": "Quel personnage est un tueur en série dans la série 'Dexter' ?",
-    "options": ["Dexter Morgan", "Hannibal Lecter", "Norman Bates", "Jigsaw"],
-    "answer": "Dexter Morgan"
-  },
-  {
-    "question": "Dans quelle série télévisée les personnages vivent-ils sur l'île 'Lost' ?",
-    "options": ["Lost", "The Walking Dead", "Prison Break", "24 heures chrono"],
-    "answer": "Lost"
-  },
-  {
-    "question": "Dans quelle série télévisée se déroule l'histoire de l'agence de détectives 'Bunk' ?",
-    "options": ["The Wire", "True Detective", "The Shield", "Sons of Anarchy"],
-    "answer": "The Wire"
-  },
-  {
-    "question": "Dans quelle série télévisée une famille aux pouvoirs spéciaux est-elle mise à l'épreuve ?",
-    "options": ["The Flash", "The Incredibles", "Heroes", "Umbrella Academy"],
-    "answer": "The Incredibles"
-  },
-  {
-    "question": "Dans quelle série télévisée 'The Mandalorian' trouve-t-on des créatures appelées 'Grogu' ?",
-    "options": ["Star Wars", "The Mandalorian", "The Witcher", "Lord of the Rings"],
-    "answer": "The Mandalorian"
-  }
-]
+{
+  "category": "Séries",
+  "questions": [
+    {
+      "question": "Dans quelle série retrouve-t-on un personnage nommé 'Walter White' ?",
+      "options": [
+        "Breaking Bad",
+        "Stranger Things",
+        "The Walking Dead",
+        "Narcos"
+      ],
+      "answer": "Breaking Bad"
+    },
+    {
+      "question": "Dans quelle série la famille 'Simpson' vit-elle ?",
+      "options": [
+        "Family Guy",
+        "The Simpsons",
+        "South Park",
+        "The Cleveland Show"
+      ],
+      "answer": "The Simpsons"
+    },
+    {
+      "question": "Dans 'Game of Thrones', qui est le roi du Nord au début de la série ?",
+      "options": [
+        "Jon Snow",
+        "Robb Stark",
+        "Tyrion Lannister",
+        "Ned Stark"
+      ],
+      "answer": "Robb Stark"
+    },
+    {
+      "question": "Quel acteur joue le rôle de 'Eleven' dans la série 'Stranger Things' ?",
+      "options": [
+        "Millie Bobby Brown",
+        "Winona Ryder",
+        "Natalia Dyer",
+        "Sadie Sink"
+      ],
+      "answer": "Millie Bobby Brown"
+    },
+    {
+      "question": "Dans 'Friends', quel est le métier de Chandler Bing ?",
+      "options": [
+        "Agent immobilier",
+        "Analyste de données",
+        "Spécialiste en marketing",
+        "Spécialiste en ressources humaines"
+      ],
+      "answer": "Analyste de données"
+    },
+    {
+      "question": "Qui est le créateur de la série 'The Office' (version américaine) ?",
+      "options": [
+        "Greg Daniels",
+        "Steve Carell",
+        "Ricky Gervais",
+        "Mike Schur"
+      ],
+      "answer": "Greg Daniels"
+    },
+    {
+      "question": "Dans 'The Mandalorian', quel personnage est surnommé 'Baby Yoda' ?",
+      "options": [
+        "Yaddle",
+        "The Child",
+        "Grogu",
+        "Yoda Jr."
+      ],
+      "answer": "Grogu"
+    },
+    {
+      "question": "Quel est le nom du personnage principal dans 'Sherlock' (version britannique) ?",
+      "options": [
+        "John Watson",
+        "Sherlock Holmes",
+        "Mycroft Holmes",
+        "James Moriarty"
+      ],
+      "answer": "Sherlock Holmes"
+    },
+    {
+      "question": "Dans quelle série trouve-t-on un personnage nommé 'Arya Stark' ?",
+      "options": [
+        "Game of Thrones",
+        "The Witcher",
+        "Vikings",
+        "Peaky Blinders"
+      ],
+      "answer": "Game of Thrones"
+    },
+    {
+      "question": "Dans 'Breaking Bad', quel est le nom de la société de Walter White avant qu'il ne devienne un criminel ?",
+      "options": [
+        "Gray Matter Technologies",
+        "Horizon Chemicals",
+        "Crystal Clear Solutions",
+        "Albuquerque Industries"
+      ],
+      "answer": "Gray Matter Technologies"
+    }
+  ]
+}

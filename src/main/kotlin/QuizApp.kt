@@ -38,8 +38,6 @@ fun QuizApp() {
     var scores by remember { mutableStateOf(mapOf<String, Int>()) }
     var isQuizCreator by remember { mutableStateOf(false) }
 
-    println("userName from GlobalState: $userName")
-
     Box(
         modifier = Modifier
             .fillMaxSize()

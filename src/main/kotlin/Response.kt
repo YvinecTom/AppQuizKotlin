@@ -45,7 +45,7 @@ fun Response(
                     interactionSource = interactionSource,
                     modifier = Modifier
                         .weight(1f) // Distribuez l'espace également entre les boutons
-                        .padding(8.dp)
+                        .padding(5.dp)
                 ) {
                     Text(
                         option,

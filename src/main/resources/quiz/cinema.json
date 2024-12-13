@@ -12,7 +12,7 @@
       "answer": "Forrest Gump"
     },
     {
-      "question": "Quel réalisateur est connu pour les films *Inception*, *The Dark Knight* et *Interstellar* ?",
+      "question": "Quel réalisateur est connu pour les films Inception, The Dark Knight et Interstellar ?",
       "options": [
         "Christopher Nolan",
         "Steven Spielberg",
@@ -32,7 +32,7 @@
       "answer": "Le Seigneur des Anneaux"
     },
     {
-      "question": "Quel acteur a interprété le rôle de Jack Dawson dans *Titanic* ?",
+      "question": "Quel acteur a interprété le rôle de Jack Dawson dans Titanic ?",
       "options": [
         "Leonardo DiCaprio",
         "Brad Pitt",
@@ -52,7 +52,7 @@
       "answer": "Toy Story"
     },
     {
-      "question": "Qui a réalisé le film classique *Psychose* en 1960 ?",
+      "question": "Qui a réalisé le film classique Psychose en 1960 ?",
       "options": [
         "Alfred Hitchcock",
         "Stanley Kubrick",
@@ -62,7 +62,7 @@
       "answer": "Alfred Hitchcock"
     },
     {
-      "question": "Dans quelle ville se déroule principalement l'action de *La La Land* ?",
+      "question": "Dans quelle ville se déroule principalement l'action de La La Land ?",
       "options": [
         "New York",
         "Chicago",
@@ -72,7 +72,7 @@
       "answer": "Los Angeles"
     },
     {
-      "question": "Quelle actrice a joué le rôle principal dans *Black Swan* ?",
+      "question": "Quelle actrice a joué le rôle principal dans Black Swan ?",
       "options": [
         "Natalie Portman",
         "Scarlett Johansson",

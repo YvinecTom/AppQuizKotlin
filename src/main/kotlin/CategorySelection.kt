@@ -35,19 +35,20 @@ fun CategorySelectionScreen(
                 "Bonjour $it",
                 style = MaterialTheme.typography.h6,
                 modifier = Modifier.padding(bottom = 25.dp),
-                fontFamily = nunito
+                fontFamily = nunito,
+                fontSize = 40.sp
             )
         }
         Text(
-            "Sélectionnez une catégorie",
+            "Veuillez sélectionner une catégorie",
             style = MaterialTheme.typography.h5,
             textAlign = TextAlign.Center,
-            fontFamily = nunito
+            fontFamily = nunito,
+            fontSize = 30.sp
         )
 
         Spacer(Modifier.height(16.dp))
 
-        // Divisez les catégories en lignes de 5
         categories.chunked(5).forEach { categoryRow ->
             Row(
                 horizontalArrangement = Arrangement.Center,
@@ -74,7 +75,7 @@ fun CategorySelectionScreen(
                         scores[category]?.let {
                             Text(
                                 "Score: $it",
-                                fontSize = 16.sp,
+                                fontSize = 20.sp,
                                 fontFamily = nunito
                             )
                         }
@@ -84,7 +85,13 @@ fun CategorySelectionScreen(
         }
 
         Spacer(Modifier.height(16.dp))
-        Button(onClick = onQuizCreatorSelected) {
+        Button(
+            onClick = onQuizCreatorSelected,
+            colors = ButtonDefaults.buttonColors(
+                backgroundColor = primaryLight,
+                contentColor =  secondaryContainerLight
+            )
+        ){
             Text("Créer un nouveau quiz")
         }
     }
