@@ -1,4 +1,3 @@
-import androidx.compose.desktop.ui.tooling.preview.Preview
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.*
@@ -11,7 +10,8 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.platform.Font
-import tests.QuizQuestion
+import QuizCreator.QuizCreatorApp
+import androidx.compose.ui.unit.sp
 
 val backgroundLight = Color(0xFFFFF8F7)
 val primaryLight = Color(0xFF8E4957)
@@ -32,14 +32,14 @@ val nunito = FontFamily(
 
 
 
-@Preview
 @Composable
-fun QuizApp() {
-
-
+fun QuizApp(
+    userName: String?
+) {
     var userName by remember { mutableStateOf<String?>(null) }
     var selectedCategory by remember { mutableStateOf<String?>(null) }
     var scores by remember { mutableStateOf(mapOf<String, Int>()) }
+    var isQuizCreator by remember { mutableStateOf(false) }
 
     Box(
         modifier = Modifier
@@ -48,10 +48,14 @@ fun QuizApp() {
     ) {
         when {
             userName == null -> WelcomeScreen { name -> userName = name }
+            isQuizCreator -> QuizCreatorApp(
+                userName = userName!!
+            )
             selectedCategory == null -> CategorySelectionScreen(
                 onCategorySelected = { category -> selectedCategory = category },
                 scores = scores,
-                userName = userName
+                userName = userName,
+                onQuizCreatorSelected = { isQuizCreator = true }
             )
             else -> QuizScreen(
                 category = selectedCategory!!,
@@ -64,6 +68,8 @@ fun QuizApp() {
         }
     }
 }
+
+
 
 
 @Composable
@@ -80,19 +86,21 @@ fun QuizScreen(
 
     LaunchedEffect(category) {
         quiz = try {
-            readQuizQuestionsFromFile("${category}.json")
+            readQuizQuestionsFromFileDirectly("${category}.json")
         } catch (e: Exception) {
             null
         }
+
     }
 
-    // Utilisez Modifier.fillMaxSize() avec contentAlignment.Center
-    Box(
+
+    Column(
         modifier = Modifier
             .fillMaxSize()
-            .background(backgroundLight), // Ajoutez le fond
-        contentAlignment = Alignment.Center
-    ) {
+            .padding(16.dp),
+        verticalArrangement = Arrangement.Center,
+        horizontalAlignment = Alignment.CenterHorizontally
+    ){
         quiz?.let { quiz ->
             if (quiz.questions.isEmpty()) {
                 Text(
@@ -103,66 +111,52 @@ fun QuizScreen(
             } else {
                 val currentQuestion = quiz.questions[currentQuestionIndex]
 
-                // Utilisez Column avec verticalArrangement.Center
-                Column(
-                    horizontalAlignment = Alignment.CenterHorizontally,
-                    verticalArrangement = Arrangement.Center,
-                    modifier = Modifier
-                        .fillMaxWidth(0.9f) // Limitez la largeur
-                        .fillMaxHeight()
-                        .padding(16.dp)
-                        .background(Color.Cyan)
-                ) {
-                    userName?.let {
-                        Text(
-                            "Joueur : $it",
-                            style = MaterialTheme.typography.subtitle1,
-                            fontFamily = nunito
-                        )
-                    }
-                    Spacer(Modifier.height(16.dp))
+                userName?.let {
                     Text(
-                        currentQuestion.question,
-                        style = MaterialTheme.typography.h6,
+                        "Joueur : $it",
+                        style = MaterialTheme.typography.subtitle1,
+                        fontFamily = nunito,
+                        textAlign = TextAlign.Center,
+                        fontSize = 25.sp
+                    )
+                }
+                Spacer(Modifier.height(16.dp))
+                Text(
+                    currentQuestion.question,
+                    style = MaterialTheme.typography.h6,
+                    textAlign = TextAlign.Center,
+                    fontFamily = nunito,
+                    fontSize = 25.sp
+                )
+                Spacer(Modifier.height(16.dp))
+
+                Response(
+                    options = currentQuestion.options,
+                    currentQuestion = currentQuestion,
+                    onAnswerSelected = { selectedOption, isCorrect ->
+                        userAnswer = selectedOption
+                        message = if (isCorrect) {
+                            score++
+                            "Correct! Score: $score"
+                        } else {
+                            "Incorrect. Réponse: ${currentQuestion.answer}. Score: $score"
+                        }
+                        if (currentQuestionIndex < quiz.questions.size - 1) {
+                            currentQuestionIndex++
+                        } else {
+                            onFinishQuiz(score)
+                        }
+                    }
+                )
+
+                Spacer(Modifier.height(16.dp))
+
+                if (userAnswer.isNotEmpty()) {
+                    Text(
+                        message,
                         textAlign = TextAlign.Center,
                         fontFamily = nunito
                     )
-                    Spacer(Modifier.height(16.dp))
-
-                    // Centrez les réponses
-                    Box(
-                        modifier = Modifier.fillMaxWidth(),
-                        contentAlignment = Alignment.Center
-                    ) {
-                        Reponse(
-                            options = currentQuestion.options,
-                            currentQuestion = currentQuestion,
-                            onAnswerSelected = { selectedOption, isCorrect ->
-                                userAnswer = selectedOption
-                                message = if (isCorrect) {
-                                    score++
-                                    "Correct! Score: $score"
-                                } else {
-                                    "Incorrect. Réponse: ${currentQuestion.answer}. Score: $score"
-                                }
-                                if (currentQuestionIndex < quiz.questions.size - 1) {
-                                    currentQuestionIndex++
-                                } else {
-                                    onFinishQuiz(score)
-                                }
-                            }
-                        )
-                    }
-
-                    Spacer(Modifier.height(16.dp))
-
-                    if (userAnswer.isNotEmpty()) {
-                        Text(
-                            message,
-                            textAlign = TextAlign.Center,
-                            fontFamily = nunito
-                        )
-                    }
                 }
             }
         } ?: run {
@@ -173,7 +167,9 @@ fun QuizScreen(
             )
         }
     }
+
 }
+
 
 
 

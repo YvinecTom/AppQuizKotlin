@@ -17,41 +17,78 @@ import java.io.File
 fun CategorySelectionScreen(
     onCategorySelected: (String) -> Unit,
     scores: Map<String, Int>,
-    userName: String?
+    userName: String?,
+    onQuizCreatorSelected: () -> Unit
 ) {
     val resourcesDir = File(System.getProperty("user.dir") + "/src/main/resources")
     val quizDir = File(resourcesDir, "quiz")
     val categories = quizDir.listFiles().map { it.nameWithoutExtension }
 
     Column(
-        Modifier.fillMaxSize().verticalScroll(rememberScrollState()),
+        Modifier
+            .fillMaxSize()
+            .verticalScroll(rememberScrollState()),
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         userName?.let {
-            Text("Bonjour $it", style = MaterialTheme.typography.h6, modifier = Modifier.padding(bottom = 25.dp), fontFamily = nunito)
+            Text(
+                "Bonjour ENFOIRE $it",
+                style = MaterialTheme.typography.h6,
+                modifier = Modifier.padding(bottom = 25.dp),
+                fontFamily = nunito
+            )
         }
-        Text("Sélectionnez une catégorie", style = MaterialTheme.typography.h5, textAlign = TextAlign.Center, fontFamily = nunito)
+        Text(
+            "Sélectionnez une catégorie",
+            style = MaterialTheme.typography.h5,
+            textAlign = TextAlign.Center,
+            fontFamily = nunito
+        )
+
         Spacer(Modifier.height(16.dp))
-        Row {
-            categories.forEach { category ->
-                Column(horizontalAlignment = Alignment.CenterHorizontally, modifier = Modifier.padding(10.dp)) {
-                    Button(
-                        onClick = { onCategorySelected(category) },
-                        colors = ButtonDefaults.buttonColors(
-                            backgroundColor = secondaryContainerLight // Remplacez par la couleur de votre choix
-                        )
+
+        // Divisez les catégories en lignes de 5
+        categories.chunked(5).forEach { categoryRow ->
+            Row(
+                horizontalArrangement = Arrangement.Center,
+                modifier = Modifier.fillMaxWidth()
+            ) {
+                categoryRow.forEach { category ->
+                    Column(
+                        horizontalAlignment = Alignment.CenterHorizontally,
+                        modifier = Modifier.padding(10.dp)
                     ) {
-                        Text(
-                            category.capitalize(),
-                            fontFamily = nunito,
-                            color = secondaryLight,
-                            fontSize = 20.sp
-                        )
+                        Button(
+                            onClick = { onCategorySelected(category) },
+                            colors = ButtonDefaults.buttonColors(
+                                backgroundColor = secondaryContainerLight
+                            )
+                        ) {
+                            Text(
+                                category.capitalize(),
+                                fontFamily = nunito,
+                                color = secondaryLight,
+                                fontSize = 20.sp
+                            )
+                        }
+                        scores[category]?.let {
+                            Text(
+                                "Score: $it",
+                                fontSize = 16.sp,
+                                fontFamily = nunito
+                            )
+                        }
                     }
-                    scores[category]?.let { Text("Score: $it", fontSize = 16.sp, fontFamily = nunito) }
                 }
             }
         }
+
+        Spacer(Modifier.height(16.dp))
+        Button(onClick = onQuizCreatorSelected) {
+            Text("Créer un nouveau quiz")
+        }
     }
 }
+
+

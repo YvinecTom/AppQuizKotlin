@@ -25,7 +25,7 @@ fun WelcomeScreen(onContinue: (String) -> Unit) {
         Text("Bienvenue dans QuizMania :", style = MaterialTheme.typography.h4, textAlign = TextAlign.Center, fontFamily = nunito)
         Spacer(Modifier.height(16.dp))
         Text("Veuillez entrer votre nom pour jouer !", style = MaterialTheme.typography.h4, textAlign = TextAlign.Center, fontFamily = nunito)
-        Spacer(Modifier.height(16.dp))
+        Spacer(Modifier.height(25.dp))
         TextField(
             value = text,
             onValueChange = { text = it },
